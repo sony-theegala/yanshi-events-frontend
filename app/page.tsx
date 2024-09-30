@@ -33,7 +33,7 @@ export default function Component() {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Event Management</h1>
+        <h1 className="text-3xl font-bold">Yanshi Events</h1>
         <Link href="/add" passHref>
           <Button>
             <PlusIcon className="mr-2 h-4 w-4" /> Add Event

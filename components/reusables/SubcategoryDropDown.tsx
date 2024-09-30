@@ -34,7 +34,7 @@ export default function SubcategoryDropDown<T extends FieldValues>({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name}>Subategory</Label>
+      <Label htmlFor={name}>Subcategory</Label>
       <div className="space-y-2">
         <Controller
           control={control}
@@ -48,7 +48,7 @@ export default function SubcategoryDropDown<T extends FieldValues>({
                 // onBlur={field.onBlur} // Trigger onBlur for field validation
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder="Select a subcategory" />
                 </SelectTrigger>
                 <SelectContent>
                   {subcategories?.map((subcategory) => (
@@ -67,7 +67,7 @@ export default function SubcategoryDropDown<T extends FieldValues>({
         {manage && (
           <div>
             <Link href="/subcategories" passHref>
-              <Button variant="secondary">Manage Categories</Button>
+              <Button variant="secondary">Manage SubCategories</Button>
             </Link>
           </div>
         )}
