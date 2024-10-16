@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { useState } from "react";
 
-export const BASE_URL = `https://3.27.190.204/`;
+export const BASE_URL = `http://localhost:4000`;
 
 const api: AxiosInstance = axios.create({
     baseURL: BASE_URL,
