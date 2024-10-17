@@ -68,7 +68,7 @@ export default function AddEventForm({ id }: { id?: string }) {
         contactEmail: data.contactEmail,
       };
       if (id) {
-        updateEvent(id, paylaod);
+        await updateEvent(id, paylaod);
       } else {
         await createEvent(paylaod);
       }
@@ -121,7 +121,7 @@ export default function AddEventForm({ id }: { id?: string }) {
     <div className="flex justify-center items-center min-h-screen bg-background p-4">
       <Card className="w-full sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%]">
         <CardHeader>
-          <CardTitle>{ event && id ? "Update Event": "Add New Event"}</CardTitle>
+          <CardTitle>{event && id ? "Update Event" : "Add New Event"}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
