@@ -67,11 +67,15 @@ const EventPage = ({ params }: { params: { id: string } }) => {
   }, [id, getEventById]);
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <h1>Loading....</h1>
+      </div>
+    );
   }
 
   if (!event) {
-    return <NotFound />;
+    return  <div className="flex h-full w-full items-center justify-center"><h1>Not Found</h1></div>
   }
 
   return (

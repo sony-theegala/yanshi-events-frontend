@@ -109,12 +109,17 @@ export default function AddEventForm({ id }: { id?: string }) {
     fetchEventData();
   }, [id, reset, getEventById]);
 
+
   if (isLoading && id) {
-    return <Loading />;
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <h1>Loading....</h1>
+      </div>
+    );
   }
 
   if (!event && id) {
-    return <NotFound />;
+    return  <div className="flex h-full w-full items-center justify-center"><h1>Not Found</h1></div>
   }
 
   return (
