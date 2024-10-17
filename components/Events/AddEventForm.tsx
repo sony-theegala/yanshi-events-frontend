@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -19,7 +19,9 @@ import CategoryDropDown from "../reusables/CategoryDropDown";
 import SubcategoryDropDown from "../reusables/SubcategoryDropDown";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useEventStore } from "@/lib/event-store";
+import { Event, useEventStore } from "@/lib/event-store";
+import Loading from "./Loading";
+import NotFound from "./NotFound";
 
 type EventFormData = {
   name: string;
@@ -31,13 +33,21 @@ type EventFormData = {
   contactEmail: string;
 };
 
-export default function AddEventForm() {
+export default function AddEventForm({ id }: { id?: string }) {
   const router = useRouter();
-  const { createEvent } = useEventStore();
+  const { createEvent, getEventById, updateEvent } = useEventStore();
+  const [isLoading, setIsLoading] = useState(true);
+  const [event, setEvent] = useState<Event | undefined>(undefined);
   const { register, handleSubmit, reset, control, watch } =
     useForm<EventFormData>({
       defaultValues: {
+        name: "",
         date: undefined,
+        venue: "",
+        categoryId: "",
+        subcategoryId: "",
+        contactPhone: "",
+        contactEmail: "",
       },
     });
 
@@ -48,7 +58,7 @@ export default function AddEventForm() {
     }
 
     try {
-      await createEvent({
+      const paylaod = {
         name: data.name,
         date: data.date.getTime(),
         venue: data.venue,
@@ -56,7 +66,12 @@ export default function AddEventForm() {
         subcategoryId: data.subcategoryId,
         contactPhone: data.contactPhone,
         contactEmail: data.contactEmail,
-      });
+      };
+      if (id) {
+        updateEvent(id, paylaod);
+      } else {
+        await createEvent(paylaod);
+      }
       reset();
 
       toast.success("Event added successfully!");
@@ -66,6 +81,41 @@ export default function AddEventForm() {
       toast.error("Failed to add event.");
     }
   };
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      if (id) {
+        setIsLoading(true);
+        const eventData = await getEventById(id);
+        if (eventData) {
+          setEvent(eventData);
+          reset({
+            name: eventData.name,
+            date: new Date(eventData.date),
+            venue: eventData.venue,
+            categoryId: eventData.categoryId,
+            subcategoryId: eventData.subcategoryId,
+            contactPhone: eventData.contactPhone,
+            contactEmail: eventData.contactEmail,
+          });
+        } else {
+          toast.error("Event not found.");
+        }
+
+        setIsLoading(false);
+      }
+    };
+
+    fetchEventData();
+  }, [id, reset, getEventById]);
+
+  if (isLoading && id) {
+    return <Loading />;
+  }
+
+  if (!event && id) {
+    return <NotFound />;
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-background p-4">
@@ -136,7 +186,7 @@ export default function AddEventForm() {
               manage={true}
               control={control}
               name="categoryId"
-              rules={{ required: "Category is required" }} // Set the category as required
+              rules={{ required: "Category is required" }}
             />
 
             <SubcategoryDropDown
@@ -144,7 +194,7 @@ export default function AddEventForm() {
               manage={true}
               control={control}
               name="subcategoryId"
-              rules={{ required: "Category is required" }} // Set the category as required
+              rules={{ required: "Category is required" }}
             />
 
             <div className="space-y-2">
