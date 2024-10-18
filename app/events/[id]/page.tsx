@@ -18,8 +18,7 @@ import {
 import { toast } from "sonner";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import NotFound from "@/components/Events/NotFound";
-import Loading from "@/components/Events/Loading";
+
 
 const formatDate = (dateString: string | number) => {
   const date = new Date(dateString);
@@ -34,7 +33,7 @@ const EventPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { getEventById, deleteEvent } = useEventStore();
   const [event, setEvent] = useState<Event | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter();
 
   const handleDeleteEvent = async () => {
@@ -69,7 +68,7 @@ const EventPage = ({ params }: { params: { id: string } }) => {
   if (isLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center">
-        <h1>Loading....</h1>
+        <h1>.</h1>
       </div>
     );
   }

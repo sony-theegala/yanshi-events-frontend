@@ -20,8 +20,8 @@ import SubcategoryDropDown from "../reusables/SubcategoryDropDown";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Event, useEventStore } from "@/lib/event-store";
-import Loading from "./Loading";
-import NotFound from "./NotFound";
+
+
 
 type EventFormData = {
   name: string;
