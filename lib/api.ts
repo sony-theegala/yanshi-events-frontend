@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { useState } from "react";
 
-export const BASE_URL = `https://13.210.68.107`;
+export const BASE_URL = `https://api.rootfood.in/`;
 
 const api: AxiosInstance = axios.create({
   baseURL: BASE_URL,
