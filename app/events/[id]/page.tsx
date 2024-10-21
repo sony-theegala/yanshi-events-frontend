@@ -18,8 +18,12 @@ import {
 import { toast } from "sonner";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import NotFound from "@/components/Events/NotFound";
 import Loading from "@/components/Events/Loading";
+=======
+
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
 
 const formatDate = (dateString: string | number) => {
   const date = new Date(dateString);
@@ -34,7 +38,11 @@ const EventPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const { getEventById, deleteEvent } = useEventStore();
   const [event, setEvent] = useState<Event | undefined>(undefined);
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(true);
+=======
+  const [isLoading, setIsLoading] = useState(true)
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
   const router = useRouter();
 
   const handleDeleteEvent = async () => {
@@ -67,11 +75,23 @@ const EventPage = ({ params }: { params: { id: string } }) => {
   }, [id, getEventById]);
 
   if (isLoading) {
+<<<<<<< HEAD
     return <Loading />;
   }
 
   if (!event) {
     return <NotFound />;
+=======
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <h1>.</h1>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return  <div className="flex h-full w-full items-center justify-center"><h1>Not Found</h1></div>
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
   }
 
   return (

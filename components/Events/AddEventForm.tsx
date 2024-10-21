@@ -20,8 +20,13 @@ import SubcategoryDropDown from "../reusables/SubcategoryDropDown";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Event, useEventStore } from "@/lib/event-store";
+<<<<<<< HEAD
 import Loading from "./Loading";
 import NotFound from "./NotFound";
+=======
+
+
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
 
 type EventFormData = {
   name: string;
@@ -68,7 +73,11 @@ export default function AddEventForm({ id }: { id?: string }) {
         contactEmail: data.contactEmail,
       };
       if (id) {
+<<<<<<< HEAD
         updateEvent(id, paylaod);
+=======
+        await updateEvent(id, paylaod);
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
       } else {
         await createEvent(paylaod);
       }
@@ -109,19 +118,33 @@ export default function AddEventForm({ id }: { id?: string }) {
     fetchEventData();
   }, [id, reset, getEventById]);
 
+<<<<<<< HEAD
   if (isLoading && id) {
     return <Loading />;
   }
 
   if (!event && id) {
     return <NotFound />;
+=======
+
+  if (isLoading && id) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <h1>Loading....</h1>
+      </div>
+    );
+  }
+
+  if (!event && id) {
+    return  <div className="flex h-full w-full items-center justify-center"><h1>Not Found</h1></div>
+>>>>>>> 8708cb9f7a57c4e0117f024e1137e2d30fa1224e
   }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-background p-4">
       <Card className="w-full sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%]">
         <CardHeader>
-          <CardTitle>Add New Event</CardTitle>
+          <CardTitle>{event && id ? "Update Event" : "Add New Event"}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
